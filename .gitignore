@@ -67,3 +67,4 @@ bundle.*
 dev.sqlite3
 
 tags
+.aider*
