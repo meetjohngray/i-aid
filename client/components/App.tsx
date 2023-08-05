@@ -30,6 +30,12 @@ const App = () => {
       })
     }
 
+  const formatAnswer = (answer: string) => {
+    // Add your formatting logic here
+    // For example, you can capitalize the first letter of the answer
+    return answer.charAt(0).toUpperCase() + answer.slice(1)
+  }
+
   return (
     <>
      
@@ -50,7 +56,7 @@ const App = () => {
         <button type='submit' >Submit</button>
       </form>
         {
-          {answer} && <p>{answer}</p>
+          answer && <p>{formatAnswer(answer)}</p>
         }
     </>
   )
