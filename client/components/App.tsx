@@ -33,6 +33,8 @@ const App = () => {
   const formatAnswer = (answer: string) => {
     // Add your formatting logic here
     // For example, you can capitalize the first letter of the answer
+    answer = answer.replace(/`([^`]+)`/g, '<code>$1</code>');
+    answer = answer.replace(/```([^`]+)```/g, '<pre><code>$1</code></pre>');
     return answer.charAt(0).toUpperCase() + answer.slice(1)
   }
 
