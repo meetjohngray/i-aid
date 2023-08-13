@@ -4,55 +4,67 @@ import { getAnswer } from '../apiClient'
 export interface promptData { question: string}
 
 const App = () => {
+  const [message, setMessage] = useState('')
+  const [chats, setChats] = useState([])
+  const [isTyping, setIsTyping] = useState(false)
 
-  const initialState: promptData = { question: ''}
-  const [formData, setFormData] = useState(initialState)
-  const { question } = formData
-  const [answer, setAnswer] = useState('')
-  const [isError, setIsError] = useState(false)
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.currentTarget
-    setFormData((previous) => ({ ...previous, [name]: value }))
-  }
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    getAnswer(formData)
-      .then((data) => {
-        setAnswer(data)
-        setFormData(initialState)
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>, message) => {
+    e.preventDefault()
+    if(!message) return
+    setIsTyping(true)
+    let msgs = chats
+    msgs.push({role: "user", content: message})
+    setChats(msgs)
+    setMessage('')
+    getAnswer(chats)
+      .then((res) => {
+        msgs.push(res.body.output)
+        setChats(msgs)
+        setIsTyping(false)
       })
-      .catch((err) => {
-        setIsError(true)
-        console.log(err)
+      .catch(e => {
+        console.log(e)
       })
     }
 
   return (
-    <>
-     
+    <div className={isTyping ? "" : "hide"}>
       <h1>Ask Me Anything</h1>
-      {isError && (
-        <p style={{ color: 'red' }}>
-          There was an error retrieving the greeting.
+        <section>
+        {chats && chats.length
+          ? chats.map((chat, index) => (
+              <p key={index} className={chat.role === "user" ? "user_msg" : ""}>
+                <span>
+                  <b>{chat.role.toUpperCase()}</b>
+                </span>
+                <span>:</span>
+                <span>{chat.content}</span>
+              </p>
+            ))
+          : ""}
+      </section>
+        <p>
+          <i>{isTyping ? "Typing" : ""}</i>
         </p>
-      )}
-      <form onSubmit={handleSubmit} aria-label='Ask a question'>
-        <label htmlFor='question'>Question</label>
-        <textarea 
-          id='question' 
-          name='question'
-          value={question} 
-          onChange={handleChange}
-        />
-        <button type='submit' >Submit</button>
-      </form>
-        {
-          {answer} && <p>{answer}</p>
-        }
-    </>
+        <form onSubmit={(e) => handleSubmit(e, message)} aria-label='Ask a question'>
+          {/* <label htmlFor='message'>Your Message</label> */}
+          <input
+            type='text' 
+            id='question' 
+            name='message'
+            value={message}
+            placeholder='Type your message here...'
+            onChange={e => setMessage(e.target.value)}
+          />
+        </form>
+      </div>
+    // <>
+    //   
+    //   {isError && (
+    //     <p style={{ color: 'red' }}>
+    //       There was an error retrieving the greeting.
+    //     </p>
+    //   )}
   )
 }
 

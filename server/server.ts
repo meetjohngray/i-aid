@@ -2,11 +2,13 @@ import path from 'node:path';
 import express from 'express'
 import cors, { CorsOptions } from 'cors'
 import openAi from './routes/openai'
+import bodyParser from 'body-parser';
 
 const server = express()
 
 server.use(express.json())
 server.use(express.static(path.join(__dirname, './public')))
+server.use(bodyParser.json())
 server.use(cors('*' as CorsOptions))
 // server.use((req, res, next) => {
 //   console.log('Request!!!!', req.url);

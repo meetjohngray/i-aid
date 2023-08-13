@@ -11,30 +11,25 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration)
 
-const conversation = [
-  { role: 'system', content: 'You are a helpful assistant.' }
-];
-
-async function getCompletion(prompt: string) {
-    conversation.push({ role: 'user', content: prompt });
-
+async function getCompletion(prompt: any) {
     const chatCompletion = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
-      messages: conversation,
+      messages: [
+        {
+          role: 'system',
+          content: 'You are a helpful assistant'
+        },
+        ...prompt,
+      ]
     });
-
-    const data = chatCompletion.data.choices[0].message;
-    conversation.push({ role: 'assistant', content: data.content });
-
-    return data;
+    return chatCompletion
 }
 
 router.post('/', async (req, res) => {
-  const prompt = req.body.question;
-  
+  const  chats  = req.body
   try {
-    const data = await getCompletion(prompt);
-    res.status(200).json({ data });
+    const result = await getCompletion(chats)
+    res.status(200).json({ output: result.data.choices[0].message });
   } catch (error: unknown) {
     if (error instanceof Error) { 
       console.log(error.message);

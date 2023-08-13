@@ -5,7 +5,5 @@ export function getAnswer(question: promptData): Promise<string> {
   return request
     .post('/api/v1/openai')
     .send(question)
-    .then((res) => {
-      return res.body.data.content
-    })
+    .then((res) => res)
 }
