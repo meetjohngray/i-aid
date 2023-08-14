@@ -5,7 +5,6 @@ const router = Router()
 
 router.post('/', async (req, res) => {
   const chats  = req.body
-  console.log('router', chats)
   try {
     const result = await getCompletion(chats)
     res.status(200).json({ output: result.data.choices[0].message });

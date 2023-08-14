@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { getAnswer } from '../apiClient'
 import { Chat } from '../../models/chats'
+import '../styles/main.scss'
 // export interface Chat { 
 //   role: string,
 //   content: string
