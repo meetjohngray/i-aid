@@ -1,24 +1,28 @@
 import { useState } from 'react'
 import { getAnswer } from '../apiClient'
-
-export interface promptData { question: string}
+import { Chat } from '../../models/chats'
+// export interface Chat { 
+//   role: string,
+//   content: string
+// }
 
 const App = () => {
   const [message, setMessage] = useState('')
-  const [chats, setChats] = useState([])
+  const [chats, setChats] = useState<Chat[]>([])
   const [isTyping, setIsTyping] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>, message) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>, message: string) => {
     e.preventDefault()
     if(!message) return
     setIsTyping(true)
-    let msgs = chats
+    const msgs = chats
     msgs.push({role: "user", content: message})
     setChats(msgs)
     setMessage('')
     getAnswer(chats)
       .then((res) => {
-        msgs.push(res.body.output)
+        const newMessage: Chat = res.body.output
+        msgs.push(newMessage)
         setChats(msgs)
         setIsTyping(false)
       })

@@ -1,9 +1,9 @@
 import request from 'superagent'
-import { promptData } from './components/App'
+import { Chat } from '../models/chats'
 
-export function getAnswer(question: promptData): Promise<string> {
-  return request
+export async function getAnswer(question: Chat[]) {
+  const res = await request
     .post('/api/v1/openai')
     .send(question)
-    .then((res) => res)
+  return res
 }
