@@ -24,7 +24,6 @@ const App = () => {
     getAnswer(chats)
       .then((res) => {
         const newMessage: Chat = res.body.output
-        console.log(newMessage)
         msgs.push(newMessage)
         setChats(msgs)
         setIsTyping(false)
