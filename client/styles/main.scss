@@ -14,7 +14,7 @@
   -webkit-text-size-adjust: 100%;
 }
 
-html, body{
+html, body {
   scroll-behavior: smooth;
 }
 
@@ -37,43 +37,43 @@ p {
   max-width: 70%;
   padding: 15px;
   border-radius: 50px;
+  
+  span {
+    margin: 5px;
+  }
+    :first-child {
+      margin-right: 0;
+    }
 }
 
-p span{
-  margin: 5px;
-}
-
-p span:first-child{
-  margin-right: 0;
-}
-
-.user_msg{
+.user_msg {
   text-align: right;
   margin-left: 30%;
   display: flex;
   flex-direction: row-reverse;
 }
 
-// .hide {
-//   visibility: hidden;
-//   display: none;
-// }
+.hide {
+  visibility: hidden;
+  display: none;
+}
 
-form{
+form {
   text-align: center;
   position: sticky;
   bottom: 0;
 }
 
-input{
+input {
   width: 100%;
   height: 40px;
   border: none;
   padding: 10px;
   font-size: 1.2rem;
-  // background-color: rgb(28, 23, 23);
-}
-
-input:focus{
-  outline: none;
-}
+  background-color: rgb(28, 23, 23);
+  color: antiquewhite;
+  
+  &:focus {
+    outline: none;
+  }
+} 
