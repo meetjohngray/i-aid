@@ -4,7 +4,7 @@ import { getCompletion } from '../library/openai'
 const router = Router()
 
 router.post('/', async (req, res) => {
-  const chats  = req.body
+  const chats = req.body
   try {
     const result = await getCompletion(chats)
     res.status(200).json({ output: result.data.choices[0].message });
@@ -16,6 +16,5 @@ router.post('/', async (req, res) => {
     }
   }
 });
-
 
 export default router
