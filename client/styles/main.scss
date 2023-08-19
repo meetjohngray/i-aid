@@ -34,7 +34,8 @@ main {
 
 p {
   background-color: darkslategray;
-  max-width: 70%;
+  text-wrap: wrap;
+  max-width: 100%;
   padding: 15px;
   border-radius: 50px;
   margin: 5px;
@@ -74,9 +75,29 @@ input {
   padding: 10px;
   font-size: 1.2rem;
   background-color: rgb(28, 23, 23);
-  color: antiquewhite;
+  color: inherit;
   
   &:focus {
     outline: none;
   }
 } 
+
+code {
+  // background-color: #f0f0f0;
+  padding: 2px 4px 2px 15px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  text-wrap: wrap;
+}
+
+pre code {
+  display: block;
+  background: none;
+  white-space: pre;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: scroll;
+  max-width: 100%;
+  min-width: 100px;
+  margin-left: 2em;
+  padding: 0;
+}
