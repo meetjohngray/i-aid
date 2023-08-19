@@ -42,11 +42,7 @@ const App = () => {
         {chats && chats.length
           ? chats.map((chat, index) => (
             <p key={index} className={chat.role === "user" ? "user_msg" : ""}>
-              <span>
-                <b>{chat.role.toUpperCase()}</b>
-              </span>
-              <span>:</span>
-              <span>{chat.content}</span>
+              <ReactMarkdown>{chat.content}</ReactMarkdown>
             </p>
           ))
           : ""}
@@ -68,9 +64,6 @@ const App = () => {
         />
       </form>
 
-      {chats && chats.length && chats[chats.length - 1].role !== "user" && (
-        <ReactMarkdown>{chats[chats.length - 1].content}</ReactMarkdown>
-      )}
     </main>
   )
 }
